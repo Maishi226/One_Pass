@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BNZ OnePass Ecosystem Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace" aria-label="BNZ OnePass ecosystem demo">
+        <aside class="rail">
+          <div class="brand">
+            <span class="brand-mark">B</span>
+            <div>
+              <strong>BNZ OnePass</strong>
+              <span>One Identity. Every Service. Every Business.</span>
+            </div>
+          </div>
+          <nav class="steps" aria-label="Ecosystem phases">
+            <button class="step is-active" data-phase="consumer"><span>01</span>Consumer</button>
+            <button class="step" data-phase="finance"><span>02</span>Business Finance</button>
+            <button class="step" data-phase="trustlock"><span>03</span>Trust-Lock B2B</button>
+          </nav>
+          <div class="rail-metrics">
+            <div><span id="railPhase">Phase 1</span><small>Current phase</small></div>
+            <div><span id="railRisk">Low</span><small>Risk status</small></div>
+          </div>
+        </aside>
+
+        <section class="stage">
+          <header class="topbar">
+            <div>
+              <p class="eyebrow">Clickable · Runnable · Verifiable</p>
+              <h1>BNZ OnePass Ecosystem</h1>
+              <p class="subtitle">AI-powered digital identity, onboarding, finance and trusted B2B settlement.</p>
+            </div>
+            <div class="top-actions">
+              <button class="icon-button" id="resetBtn" title="Reset demo" aria-label="Reset demo">
+                <span aria-hidden="true">↺</span>
+              </button>
+              <button class="primary small" id="autoBtn">Auto run</button>
+            </div>
+          </header>
+
+          <div class="demo-grid">
+            <section class="merchant panel" aria-label="Customer scenario selector">
+              <div class="merchant-hero">
+                <img src="./assets/onepass-home.png" alt="Modern New Zealand home with energy and banking UI" />
+                <div>
+                  <span id="partnerName">Mercury</span>
+                  <strong id="partnerTitle">Move-in power setup</strong>
+                </div>
+              </div>
+
+              <div class="vision-strip">
+                <strong>Vision</strong>
+                <span>Verify once. Reuse trusted identity everywhere with consent.</span>
+              </div>
+
+              <div class="scenario-picker" aria-label="Customer scenarios">
+                <button class="customer-card is-selected" data-customer="emily">
+                  <strong>Emily Chen</strong>
+                  <span>Consumer · Instant utility onboarding</span>
+                </button>
+                <button class="customer-card" data-customer="josh">
+                  <strong>Josh Taylor</strong>
+                  <span>Consumer · Manual review required</span>
+                </button>
+                <button class="customer-card" data-customer="maya">
+                  <strong>Maya Patel</strong>
+                  <span>Consumer · AI recommends bundled services</span>
+                </button>
+                <button class="customer-card" data-customer="greenbyte">
+                  <strong>GreenByte Ltd</strong>
+                  <span>Business · Vehicle lease with loan offer</span>
+                </button>
+                <button class="customer-card" data-customer="harbour">
+                  <strong>Harbour Dental</strong>
+                  <span>Business · Equipment purchase with funding gap</span>
+                </button>
+                <button class="customer-card" data-customer="kiwifresh">
+                  <strong>KiwiFresh Foods</strong>
+                  <span>B2B · Trust-Lock supplier payment</span>
+                </button>
+              </div>
+
+              <div class="form-stack">
+                <label>Customer or business<input id="customerName" value="Emily Chen" readonly /></label>
+                <label>Scenario<input id="scenarioName" value="Move-in power setup" readonly /></label>
+                <label>Partner<input id="scenarioPartner" value="Mercury" readonly /></label>
+              </div>
+              <button class="onepass" id="connectBtn">
+                <span class="button-icon">◆</span>
+                Continue with BNZ OnePass
+              </button>
+              <div class="code-box">
+                <span>Encrypted consent token</span>
+                <code id="handoffCode">Pending</code>
+              </div>
+            </section>
+
+            <section class="phone-wrap" aria-label="BNZ app">
+              <div class="phone">
+                <div class="phone-status"><span>9:41</span><span>BNZ</span></div>
+                <div class="app-head">
+                  <span class="app-logo">B</span>
+                  <div>
+                    <strong>BNZ OnePass</strong>
+                    <small id="appStatus">Waiting for request</small>
+                  </div>
+                </div>
+
+                <article class="screen is-visible" data-screen="waiting">
+                  <div class="empty-state">
+                    <span class="pulse"></span>
+                    <h2 id="waitingTitle">Select a customer</h2>
+                    <p id="waitingCopy">Run OnePass across personal services, business finance, and B2B trust-lock.</p>
+                  </div>
+                </article>
+
+                <article class="screen" data-screen="checks">
+                  <div class="approval-card">
+                    <div class="card-head">
+                      <span class="merchant-dot" id="partnerInitial">M</span>
+                      <div>
+                        <strong id="requestTitle">Partner requests OnePass</strong>
+                        <small id="requestSubtitle">Identity, consent and financial intelligence</small>
+                      </div>
+                    </div>
+                    <div class="check-list" id="checkList"></div>
+                    <p class="ai-note" id="aiNarrative"></p>
+                    <button class="primary" id="runChecksBtn">Run OnePass AI checks</button>
+                  </div>
+                </article>
+
+                <article class="screen" data-screen="decision">
+                  <div id="decisionCard"></div>
+                  <button class="primary" id="primaryActionBtn">Approve</button>
+                  <button class="secondary action-spacer" id="secondaryActionBtn">View wallet</button>
+                </article>
+
+                <article class="screen" data-screen="guardian">
+                  <div class="bill">
+                    <div>
+                      <span>This month’s Mercury bill</span>
+                      <strong>$398.00</strong>
+                    </div>
+                    <meter min="0" max="400" low="180" high="260" optimum="150" value="398"></meter>
+                  </div>
+                  <div class="alert">
+                    <strong>Unusual bill blocked before payment</strong>
+                    <p>The safety cap is <b id="capInline">$180</b>. BNZ AI pauses the debit three days before payment and asks the customer to review it.</p>
+                  </div>
+                  <button class="primary" id="letterBtn">Draft dispute email with AI</button>
+                </article>
+
+                <article class="screen" data-screen="wallet">
+                  <div class="wallet-head">
+                    <h2>AI Permission Wallet</h2>
+                    <button class="secondary tiny" id="moveBtn">Detect move</button>
+                  </div>
+                  <div class="permission-list" id="permissionList"></div>
+                  <button class="primary" id="revokeBtn">Revoke old permissions</button>
+                </article>
+              </div>
+            </section>
+
+            <aside class="inspector panel" aria-label="Verification inspector">
+              <div class="inspector-head">
+                <h2>Verification panel</h2>
+                <span id="scenarioPill">Phase 1</span>
+              </div>
+              <div class="state-grid">
+                <div><span>Customer</span><strong id="customerState">Emily Chen</strong></div>
+                <div><span>Phase</span><strong id="phaseState">Consumer</strong></div>
+                <div><span>Identity</span><strong id="identityState">Not checked</strong></div>
+                <div><span>Financial AI</span><strong id="riskState">Not checked</strong></div>
+                <div><span>Outcome</span><strong id="outcomeState">Pending</strong></div>
+                <div><span>BNZ opportunity</span><strong id="opportunityState">None yet</strong></div>
+              </div>
+              <div class="timeline" id="timeline" aria-live="polite"></div>
+              <details open>
+                <summary>Inspectable state JSON</summary>
+                <pre id="stateJson"></pre>
+              </details>
+            </aside>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>
