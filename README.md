@@ -1,4 +1,4 @@
-# 🚀 BNZ OnePass
+# 🚀OnePass
 
 > **An AI-driven, one-click onboarding platform built on Open Banking Frameworks.**
 > Developed for the 2026 Hackathon.
